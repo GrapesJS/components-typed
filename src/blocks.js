@@ -3,7 +3,7 @@ export default (editor, opts = {}) => {
 
   bm.add('MY-BLOCK', {
     label: 'My block',
-    content: { type: 'MY-COMPONENT' },
+    content: { type: 'MY-COMPONENT', textable: 1, },
     // media: '<svg>...</svg>',
   });
 }
