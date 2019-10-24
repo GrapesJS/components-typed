@@ -1,9 +1,12 @@
+import { cmpId } from './utils';
+
 export default (editor, opts = {}) => {
   const bm = editor.BlockManager;
+  const { block } = opts;
 
-  bm.add('MY-BLOCK', {
-    label: 'My block',
-    content: { type: 'MY-COMPONENT', textable: 1, },
-    // media: '<svg>...</svg>',
+  block && bm.add(cmpId, {
+    label: 'Typed',
+    content: { type: cmpId },
+    ...block,
   });
 }

@@ -1,7 +1,9 @@
+import { cmpId } from './utils';
+
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
 
-  domc.addType('MY-COMPONENT', {
+  domc.addType(cmpId, {
     model: {
       defaults: {
         // Same options as https://github.com/mattboldt/typed.js#customization
@@ -26,6 +28,7 @@ export default (editor, opts = {}) => {
         // GJS props
         tagName: 'span',
         typedsrc: opts.script,
+        textable: 1,
         droppable: 0,
         strings: [],
         traits: [],
