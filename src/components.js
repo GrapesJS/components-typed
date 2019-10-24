@@ -96,9 +96,11 @@ export default (editor, opts = {}) => {
           }
         },
       },
-    },
-    view: {
 
+      init() {
+        const events = traits.map(i => `change:${i.name}`).join(' ');
+        this.on(events, () => this.trigger('change:script'));
+      }
     },
   });
 };
