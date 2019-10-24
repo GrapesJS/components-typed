@@ -3,29 +3,32 @@ import { cmpId } from './utils';
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
 
+  // Same options of the library
+  // https://github.com/mattboldt/typed.js#customization
+  const typedProps = {
+    'type-speed': 40,
+    'start-delay': 0,
+    'back-delay': 700,
+    'back-speed': 0,
+    'smart-backspace': 1,
+    'fade-out': 0,
+    'fade-out-class': 'typed-fade-out',
+    'fade-out-delay': 500,
+    'show-cursor': 1,
+    'cursor-char': '|',
+    'auto-insert-css': 1,
+    'bind-input-focus-events': 0,
+    'content-type': 'html',
+    loop: 1,
+    loopCount: 0,
+    shuffle: 0,
+    attr: '',
+  }
+
   domc.addType(cmpId, {
     model: {
       defaults: {
-        // Same options as https://github.com/mattboldt/typed.js#customization
-        'type-speed': 40,
-        'start-delay': 0,
-        'back-delay': 700,
-        'back-speed': 0,
-        'smart-backspace': 1,
-        'fade-out': 0,
-        'fade-out-class': 'typed-fade-out',
-        'fade-out-delay': 500,
-        'show-cursor': 1,
-        'cursor-char': '|',
-        'auto-insert-css': 1,
-        'bind-input-focus-events': 0,
-        'content-type': 'html',
-        loop: 0,
-        loopCount: 0,
-        shuffle: 0,
-        attr: '',
-
-        // GJS props
+        ...typedProps,
         tagName: 'span',
         typedsrc: opts.script,
         textable: 1,
