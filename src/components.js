@@ -4,45 +4,69 @@ export default (editor, opts = {}) => {
   domc.addType('MY-COMPONENT', {
     model: {
       defaults: {
-        tagName: 'span',
         // Same options as https://github.com/mattboldt/typed.js#customization
         'type-speed': 40,
         'start-delay': 0,
-        backspace: 1,
+        'back-delay': 700,
+        'back-speed': 0,
+        'smart-backspace': 1,
+        'fade-out': 0,
+        'fade-out-class': 'typed-fade-out',
+        'fade-out-delay': 500,
+        'show-cursor': 1,
+        'cursor-char': '|',
+        'auto-insert-css': 1,
+        'bind-input-focus-events': 0,
+        'content-type': 'html',
+        loop: 0,
+        loopCount: 0,
+        shuffle: 0,
+        attr: '',
+
+        // GJS props
+        tagName: 'span',
         typedsrc: opts.script,
-        components: {
-          highlightable: 0,
-          tagName: 'span',
-          layerable: 0,
-          hoverable: 0,
-          selectable: 0,
-          removable: 0,
-          draggable: 0,
-          droppable: 0,
-          removable: 0,
-          copyable: 0,
-        },
+        droppable: 0,
+        strings: [],
         traits: [],
         script() {
+          const strings = JSON.parse('{[ strings ]}');
+          const int = num => parseInt(num, 10) || 0;
+          const bool = val => !!val;
           const init = () => {
-            const options = {
-              strings: [
-                '<i>First</i> sentence.',
-                '&amp; a second sentence.',
-                'This is a JavaScript library',
-                'This is an ES6 module',
-              ],
-              smartBackspace: true,
-              typeSpeed: 40,
+            const el = this;
+            el.innerHTML = '<span></span>';
+            const loopCount = parseInt('{[ loop-count ]}', 10);
+            const config = {
+              typeSpeed: int('{[ type-speed ]}'),
+              startDelay: int('{[ start-delay ]}'),
+              backDelay: int('{[ back-delay ]}'),
+              backSpeed: int('{[ back-speed ]}'),
+              smartBackspace: bool('{[ smart-backspace ]}'),
+              fadeOut: bool('{[ fade-out ]}'),
+              fadeOutClass: '{[ fade-out-class ]}',
+              fadeOutDelay: int('{[ fade-out-delay ]}'),
+              shuffle: bool('{[ shuffle ]}'),
+              loop: bool('{[ loop ]}'),
+              loopCount: isNaN(loopCount) ? Infinity : loopCount,
+              showCursor: bool('{[ show-cursor ]}'),
+              cursorChar: '{[ cursor-char ]}',
+              autoInsertCss: bool('{[ auto-insert-css ]}'),
+              bindInputFocusEvents: bool('{[ bind-input-focus-events ]}'),
+              attr: '{[ attr ]}',
+              contentType: '{[ content-type ]}',
             };
-            const el = this.children[0];
-            el.innerHTML = '';
-            new Typed(el, options);
+
+            if (strings && strings.length) {
+              config.strings = strings;
+            }
+
+            new Typed(el.children[0], config);
           };
 
           if (!window.Typed) {
             const scr = document.createElement('script');
-            scr.src = 'https://cdn.jsdelivr.net/npm/typed.js@2.0.11';
+            scr.src = '{[ typedsrc ]}';
             scr.onload = init;
             document.head.appendChild(scr);
           } else {

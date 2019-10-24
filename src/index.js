@@ -2,6 +2,7 @@ import loadComponents from './components';
 import loadBlocks from './blocks';
 
 export default (editor, opts = {}) => {
+
   const options = { ...{
     script: 'https://cdn.jsdelivr.net/npm/typed.js@2.0.11',
     // default options
