@@ -2,28 +2,45 @@ import { cmpId } from './utils';
 
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
+  const { keys } = Object;
 
   // Same options of the library
   // https://github.com/mattboldt/typed.js#customization
   const typedProps = {
-    'type-speed': 40,
+    strings: [],
+    'type-speed': 0,
     'start-delay': 0,
-    'back-delay': 700,
     'back-speed': 0,
-    'smart-backspace': 1,
-    'fade-out': 0,
+    'smart-backspace': true,
+    'back-delay': 700,
+    'fade-out': false,
     'fade-out-class': 'typed-fade-out',
     'fade-out-delay': 500,
-    'show-cursor': 1,
+    'show-cursor': true,
     'cursor-char': '|',
-    'auto-insert-css': 1,
-    'bind-input-focus-events': 0,
+    'auto-insert-css': true,
+    'bind-input-focus-events': false,
     'content-type': 'html',
-    loop: 1,
-    loopCount: 0,
-    shuffle: 0,
+    loop: false,
+    'loop-count': Infinity,
+    shuffle: false,
     attr: '',
-  }
+  };
+
+  const getTraitType = value => {
+    if (typeof value == 'number') return 'number';
+    if (typeof value == 'boolean') return 'checkbox';
+    return 'text';
+  };
+
+  const traits = keys(typedProps)
+    .filter(item => ['strings'].indexOf(item) < 0)
+    .map(name => ({
+      changeProp: 1,
+      type: getTraitType(typedProps[name]),
+      min: 0,
+      name,
+    }));
 
   domc.addType(cmpId, {
     model: {
@@ -33,8 +50,7 @@ export default (editor, opts = {}) => {
         typedsrc: opts.script,
         textable: 1,
         droppable: 0,
-        strings: [],
-        traits: [],
+        traits,
         script() {
           const strings = JSON.parse('{[ strings ]}');
           const int = num => parseInt(num, 10) || 0;
