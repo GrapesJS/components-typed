@@ -9,7 +9,25 @@ export default (editor, opts = {}) => {
     // Extend Typed block, eg. `{ label: 'Typed', ... }`
     // Pass a falsy value to skip the block
     block: {},
-    // default options
+
+    // Customize the component props. The final object should be returned
+    // from the function.
+    /**
+     eg. Here an example of how you would customize component's traits
+     `props => {
+        props.traits = props.traits.map(trait => {
+          if (trait.name == 'strings') {
+            trait.label = 'Custom <b>trait<b/> label';
+          }
+          // this trait will be removed
+          if (trait.name == 'fade-out-class') return;
+          return trait;
+        }).filter(i => i);
+
+        return props;
+     }`
+     */
+    props: i => i,
   },  ...opts };
 
   loadComponents(editor, options);

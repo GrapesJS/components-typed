@@ -54,7 +54,7 @@ export default (editor, opts = {}) => {
 
   domc.addType(cmpId, {
     model: {
-      defaults: {
+      defaults: opts.props({
         ...typedProps,
         tagName: 'span',
         typedsrc: opts.script,
@@ -105,7 +105,7 @@ export default (editor, opts = {}) => {
             init();
           }
         },
-      },
+      }),
 
       init() {
         const events = traits.filter(i => ['strings'].indexOf(i.name) < 0)
