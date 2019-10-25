@@ -1,5 +1,6 @@
 import loadComponents from './components';
 import loadBlocks from './blocks';
+import loadTraits from './traits';
 
 export default (editor, opts = {}) => {
 
@@ -11,8 +12,7 @@ export default (editor, opts = {}) => {
     // default options
   },  ...opts };
 
-  // Add components
   loadComponents(editor, options);
-  // Add blocks
   loadBlocks(editor, options);
+  loadTraits(editor, options);
 };

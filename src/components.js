@@ -1,4 +1,4 @@
-import { cmpId } from './utils';
+import { cmpId, traitStringId } from './utils';
 
 export default (editor, opts = {}) => {
   const domc = editor.DomComponents;
@@ -7,7 +7,11 @@ export default (editor, opts = {}) => {
   // Same options of the library
   // https://github.com/mattboldt/typed.js#customization
   const typedProps = {
-    strings: [],
+    strings: [
+      'Row 1',
+      'Row 2',
+      'Row 3',
+    ],
     'type-speed': 0,
     'start-delay': 0,
     'back-speed': 0,
@@ -41,6 +45,12 @@ export default (editor, opts = {}) => {
       min: 0,
       name,
     }));
+
+  traits.unshift({
+    changeProp: 1,
+    name: 'strings',
+    type: traitStringId,
+  });
 
   domc.addType(cmpId, {
     model: {
@@ -100,6 +110,14 @@ export default (editor, opts = {}) => {
       init() {
         const events = traits.map(i => `change:${i.name}`).join(' ');
         this.on(events, () => this.trigger('change:script'));
+        this.on('change:strings', this.onStringsChange);
+      },
+
+      onStringsChange(model, value) {
+        console.log('onStringsChange before');
+        if (Array.isArray(value)) return;
+        console.log('onStringsChange after');
+        this.set({ strings: value.split('\n') });
       }
     },
   });
