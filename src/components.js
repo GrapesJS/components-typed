@@ -108,16 +108,16 @@ export default (editor, opts = {}) => {
       },
 
       init() {
-        const events = traits.map(i => `change:${i.name}`).join(' ');
+        const events = traits.filter(i => ['strings'].indexOf(i.name) < 0)
+          .map(i => `change:${i.name}`).join(' ');
         this.on(events, () => this.trigger('change:script'));
         this.on('change:strings', this.onStringsChange);
       },
 
       onStringsChange(model, value) {
-        console.log('onStringsChange before');
         if (Array.isArray(value)) return;
-        console.log('onStringsChange after');
         this.set({ strings: value.split('\n') });
+        this.trigger('change:script');
       }
     },
   });
