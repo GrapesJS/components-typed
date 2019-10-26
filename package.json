@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-typed",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "GrapesJS Typed",
   "main": "dist/grapesjs-typed.min.js",
   "repository": {
@@ -10,7 +10,7 @@
   "scripts": {
     "start": "grapesjs-cli serve",
     "build": "grapesjs-cli build",
-    "bump": "npm version patch -m 'Bump v%s'"
+    "bump": "npm version patch -m 'Bump v%s' --force"
   },
   "keywords": [
     "grapesjs",
