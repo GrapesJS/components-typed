@@ -4,6 +4,8 @@ GrapesJS Typed component made by wrapping Typed.js library
 
 [DEMO](https://jsfiddle.net/artur_arseniev/xfvo50hj)
 
+![Screenshot](https://user-images.githubusercontent.com/11614725/67621063-3f31c380-f80d-11e9-8d62-7f1da9f27111.png)
+
 
 ## Summary
 
