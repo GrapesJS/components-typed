@@ -52,9 +52,7 @@ export default (editor, opts = {}) => {
     model: {
       defaults: opts.props({
         ...typedProps,
-        tagName: 'span',
         typedsrc: opts.script,
-        textable: 1,
         droppable: 0,
         traits,
         script() {

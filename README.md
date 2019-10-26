@@ -1,6 +1,6 @@
 # GrapesJS Typed
 
-Simple GrapesJS component made by wrapping Typed.js library
+GrapesJS Typed component made by wrapping Typed.js library
 
 [DEMO](https://jsfiddle.net/artur_arseniev/xfvo50hj)
 
@@ -13,7 +13,7 @@ Simple GrapesJS component made by wrapping Typed.js library
 
   | Prop | Description | Default |
   |-|-|-
-  | `strings` | Description option | `[]` |
+  | `strings` | Strings to be typed | `[]` |
   | `type-speed` | Type speed in milliseconds | `0` |
   | `start-delay` | Time before typing starts in milliseconds | `0` |
   | `back-speed` | Backspacing speed in milliseconds | `0` |
@@ -41,6 +41,7 @@ Simple GrapesJS component made by wrapping Typed.js library
 
 | Option | Description | Default |
 |-|-|-
+| `script` | Library to load asynchronously in case `Typed` is not found  | [CDN](https://cdn.jsdelivr.net/npm/typed.js@2.0.11) |
 | `block` | Object to extend the default block <br/> eg. `{ label: 'Typed', ... }`<br/>Pass a falsy value to avoid adding the block | `{}` |
 | `props` | Customize component's props. The final object should be returned from the function | `props => props` |
 
