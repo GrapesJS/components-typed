@@ -1,5 +1,7 @@
 # GrapesJS Typed
 
+Simple GrapesJS component made by wrapping Typed.js library
+
 [DEMO](##)
 > **Provide a live demo of your plugin**
 For a better user engagement create a simple live demo by using services like [JSFiddle](https://jsfiddle.net) [CodeSandbox](https://codesandbox.io) [CodePen](https://codepen.io) and link it here in your README (attaching a screenshot/gif will also be a plus).
@@ -38,13 +40,31 @@ body, html {
 
 * Plugin name: `grapesjs-typed`
 * Components
-    * `component-id-1`
-    * `component-id-2`
-    * ...
+    * `typed` - Main component
+
+  | Prop | Description | Default |
+  |-|-|-
+  | `strings` | Description option | `[]` |
+  | `type-speed` | Type speed in milliseconds | `0` |
+  | `start-delay` | Time before typing starts in milliseconds | `0` |
+  | `back-speed` | Backspacing speed in milliseconds | `0` |
+  | `smart-backspace` | Only backspace what doesn't match the previous string | `true` |
+  | `back-delay` | Time before backspacing in milliseconds | `700` |
+  | `fade-out` | Fade out instead of backspace | `false` |
+  | `fade-out-class` | CSS class for fade animation | `typed-fade-out` |
+  | `fade-out-delay` | Fade out delay in milliseconds | `500` |
+  | `show-cursor` | Show cursor | `true` |
+  | `cursor-char` | Character for cursor | `\|` |
+  | `auto-insert-css` | Insert CSS for cursor and fadeOut into HTML `<head>` | `true` |
+  | `bind-input-focus-events` | Bind to focus and blur if el is text input | `false` |
+  | `content-type` | 'html' or 'null' for plaintext | `html` |
+  | `loop` | Loop strings | `false` |
+  | `loop-count` | Amount of loops | `Infinity` |
+  | `shuffle` | Shuffle the strings | `false` |
 * Blocks
-    * `block-id-1`
-    * `block-id-2`
-    * ...
+    * `typed` - Main block
+* Traits
+    * `typed-strings` - Textarea input to handle strings (one string per row)
 
 
 

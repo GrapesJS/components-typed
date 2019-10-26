@@ -7,11 +7,7 @@ export default (editor, opts = {}) => {
   // Same options of the library
   // https://github.com/mattboldt/typed.js#customization
   const typedProps = {
-    strings: [
-      'Row 1',
-      'Row 2',
-      'Row 3',
-    ],
+    strings: [],
     'type-speed': 0,
     'start-delay': 0,
     'back-speed': 0,
