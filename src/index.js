@@ -6,8 +6,8 @@ export default (editor, opts = {}) => {
 
   const options = { ...{
     script: 'https://cdn.jsdelivr.net/npm/typed.js@2.0.11',
-    // Extend Typed block, eg. `{ label: 'Typed', ... }`
-    // Pass a falsy value to skip the block
+    // Object to extend the default block, eg. `{ label: 'Typed', ... }`
+    // Pass a falsy value to avoid adding the block
     block: {},
 
     // Customize the component props. The final object should be returned

@@ -41,7 +41,8 @@ Simple GrapesJS component made by wrapping Typed.js library
 
 | Option | Description | Default |
 |-|-|-
-| `option1` | Description option | `default value` |
+| `block` | Object to extend the default block <br/> eg. `{ label: 'Typed', ... }`<br/>Pass a falsy value to avoid adding the block | `{}` |
+| `props` | Customize component's props. The final object should be returned from the function | `props => props` |
 
 
 
@@ -67,7 +68,7 @@ Directly in the browser
 <div id="gjs"></div>
 
 <script type="text/javascript">
-  var editor = grapesjs.init({
+  const editor = grapesjs.init({
       container: '#gjs',
       // ...
       plugins: ['grapesjs-typed'],
