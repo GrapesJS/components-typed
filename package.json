@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-typed",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "GrapesJS Typed",
   "main": "dist/grapesjs-typed.min.js",
   "repository": {
@@ -17,7 +17,7 @@
     "plugin"
   ],
   "devDependencies": {
-    "grapesjs-cli": "^1.0.7"
+    "grapesjs-cli": "^1.0.10"
   },
   "license": "MIT"
 }
