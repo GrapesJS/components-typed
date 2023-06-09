@@ -8,7 +8,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/artf/grapesjs-typed.git"
+    "url": "https://github.com/GrapesJS/components-typed.git"
   },
   "scripts": {
     "start": "grapesjs-cli serve",
