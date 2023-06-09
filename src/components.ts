@@ -64,8 +64,16 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
         traits,
         'script-props': [...typedPropsKeys, 'typedsrc'],
         script(props: typeof typedProps & { typedsrc: string }) {
-          console.log({props});
-          const strings = typeof props.strings === 'string' ? JSON.parse(props.strings) : props.strings;
+          const getStrings = (value: string | string[]) => {
+            if (Array.isArray(value)) {
+              return value;
+            } else if (value.indexOf('\n') >= 0) {
+              return value.split('\n');
+            } else {
+              return []
+            }
+          }
+          const strings = getStrings(props.strings);
           const int = (num: any) => parseInt(num, 10) || 0;
           const bool = (val: any) => !!val;
           const init = () => {
@@ -110,19 +118,6 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
           }
         },
       }) as any,
-
-      init() {
-        const events = traits.filter(i => ['strings'].indexOf(i.name) < 0)
-          .map(i => `change:${i.name}`).join(' ');
-        this.on(events, () => this.trigger('change:script'));
-        this.on('change:strings', this.onStringsChange);
-      },
-
-      onStringsChange(_: any, value: any) {
-        if (Array.isArray(value)) return;
-        this.set({ strings: value.split('\n') });
-        this.trigger('change:script');
-      }
     },
   });
 };

@@ -9,6 +9,11 @@ export default (editor: Editor) => {
 
         onUpdate({ component, elInput }) {
             elInput.value = component.get('strings').join('\n');
-        }
+        },
+
+        onEvent({ component, elInput }) {
+            const value = (elInput.value || '').split('\n');
+            component.set('strings', value);
+        },
     });
 }
