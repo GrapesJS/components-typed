@@ -1,6 +1,18 @@
+import type { Editor, TraitProperties } from 'grapesjs';
+import { RequiredPluginOptions } from '.';
 import { cmpId, traitStringId } from './utils';
 
-export default (editor, opts = {}) => {
+declare global {
+  interface Window { Typed: any; }
+}
+
+const getTraitType = (value: any): string => {
+  if (typeof value == 'number') return 'number';
+  if (typeof value == 'boolean') return 'checkbox';
+  return 'text';
+};
+
+export default (editor: Editor, opts: RequiredPluginOptions) => {
   const domc = editor.DomComponents;
   const { keys } = Object;
 
@@ -27,23 +39,17 @@ export default (editor, opts = {}) => {
     attr: '',
   };
 
-  const getTraitType = value => {
-    if (typeof value == 'number') return 'number';
-    if (typeof value == 'boolean') return 'checkbox';
-    return 'text';
-  };
-
-  const traits = keys(typedProps)
+  const traits: TraitProperties[] = keys(typedProps)
     .filter(item => ['strings'].indexOf(item) < 0)
     .map(name => ({
-      changeProp: 1,
-      type: getTraitType(typedProps[name]),
+      changeProp: true,
+      type: getTraitType((typedProps as any)[name]),
       min: 0,
       name,
     }));
 
   traits.unshift({
-    changeProp: 1,
+    changeProp: true,
     name: 'strings',
     type: traitStringId,
   });
@@ -57,10 +63,10 @@ export default (editor, opts = {}) => {
         traits,
         script() {
           const strings = JSON.parse('{[ strings ]}');
-          const int = num => parseInt(num, 10) || 0;
-          const bool = val => !!val;
+          const int = (num: any) => parseInt(num, 10) || 0;
+          const bool = (val: any) => !!val;
           const init = () => {
-            const el = this;
+            const el = this as unknown as HTMLElement;
             el.innerHTML = '<span></span>';
             const loopCount = parseInt('{[ loop-count ]}', 10);
             const config = {
@@ -84,10 +90,10 @@ export default (editor, opts = {}) => {
             };
 
             if (strings && strings.length) {
-              config.strings = strings;
+              (config as any).strings = strings;
             }
 
-            new Typed(el.children[0], config);
+            new window.Typed(el.children[0], config);
           };
 
           if (!window.Typed) {
@@ -99,7 +105,7 @@ export default (editor, opts = {}) => {
             init();
           }
         },
-      }),
+      }) as any,
 
       init() {
         const events = traits.filter(i => ['strings'].indexOf(i.name) < 0)
@@ -108,7 +114,7 @@ export default (editor, opts = {}) => {
         this.on('change:strings', this.onStringsChange);
       },
 
-      onStringsChange(model, value) {
+      onStringsChange(_: any, value: any) {
         if (Array.isArray(value)) return;
         this.set({ strings: value.split('\n') });
         this.trigger('change:script');
