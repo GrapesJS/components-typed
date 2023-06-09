@@ -39,7 +39,8 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
     attr: '',
   };
 
-  const traits: TraitProperties[] = keys(typedProps)
+  const typedPropsKeys = keys(typedProps);
+  const traits: TraitProperties[] = typedPropsKeys
     .filter(item => ['strings'].indexOf(item) < 0)
     .map(name => ({
       changeProp: true,
@@ -61,32 +62,35 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
         typedsrc: opts.script,
         droppable: 0,
         traits,
-        script() {
-          const strings = JSON.parse('{[ strings ]}');
+        'script-props': [...typedPropsKeys, 'typedsrc'],
+        script(props: typeof typedProps & { typedsrc: string }) {
+          console.log({props});
+          const strings = typeof props.strings === 'string' ? JSON.parse(props.strings) : props.strings;
           const int = (num: any) => parseInt(num, 10) || 0;
           const bool = (val: any) => !!val;
           const init = () => {
             const el = this as unknown as HTMLElement;
             el.innerHTML = '<span></span>';
-            const loopCount = parseInt('{[ loop-count ]}', 10);
+            const loopCount = parseInt(`${props['loop-count']}`, 10);
+            `${props['type-speed']}`
             const config = {
-              typeSpeed: int('{[ type-speed ]}'),
-              startDelay: int('{[ start-delay ]}'),
-              backDelay: int('{[ back-delay ]}'),
-              backSpeed: int('{[ back-speed ]}'),
-              smartBackspace: bool('{[ smart-backspace ]}'),
-              fadeOut: bool('{[ fade-out ]}'),
-              fadeOutClass: '{[ fade-out-class ]}',
-              fadeOutDelay: int('{[ fade-out-delay ]}'),
-              shuffle: bool('{[ shuffle ]}'),
-              loop: bool('{[ loop ]}'),
+              typeSpeed: int(props['type-speed']),
+              startDelay: int(props['start-delay']),
+              backDelay: int(props['back-delay']),
+              backSpeed: int(props['back-speed']),
+              smartBackspace: bool(props['smart-backspace']),
+              fadeOut: bool(props['fade-out']),
+              fadeOutClass: props['fade-out-class'],
+              fadeOutDelay: int(props['fade-out-delay']),
+              shuffle: bool(props.shuffle),
+              loop: bool(props.loop),
               loopCount: isNaN(loopCount) ? Infinity : loopCount,
-              showCursor: bool('{[ show-cursor ]}'),
-              cursorChar: '{[ cursor-char ]}',
-              autoInsertCss: bool('{[ auto-insert-css ]}'),
-              bindInputFocusEvents: bool('{[ bind-input-focus-events ]}'),
-              attr: '{[ attr ]}',
-              contentType: '{[ content-type ]}',
+              showCursor: bool(props['show-cursor']),
+              cursorChar: props['cursor-char'],
+              autoInsertCss: bool(props['auto-insert-css']),
+              bindInputFocusEvents: bool(props['bind-input-focus-events']),
+              attr: props.attr,
+              contentType: props['content-type'],
             };
 
             if (strings && strings.length) {
@@ -98,7 +102,7 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
 
           if (!window.Typed) {
             const scr = document.createElement('script');
-            scr.src = '{[ typedsrc ]}';
+            scr.src = props.typedsrc;
             scr.onload = init;
             document.head.appendChild(scr);
           } else {
