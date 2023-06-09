@@ -1,6 +1,7 @@
+import type { Editor } from 'grapesjs';
 import { traitStringId } from './utils';
 
-export default (editor) => {
+export default (editor: Editor) => {
     editor.TraitManager.addType(traitStringId, {
         createInput({ component }) {
             return `<textarea>${component.get('strings').join('\n')}</textarea>`;
