@@ -1,6 +1,8 @@
+import type { Editor } from 'grapesjs';
+import { RequiredPluginOptions } from '.';
 import { cmpId } from './utils';
 
-export default (editor, opts = {}) => {
+export default (editor: Editor, opts: RequiredPluginOptions) => {
   const bm = editor.BlockManager;
   const { block } = opts;
 
