@@ -1,8 +1,9 @@
 {
   "name": "grapesjs-typed",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "GrapesJS Typed",
-  "main": "dist/grapesjs-typed.min.js",
+  "main": "dist/index.js",
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "https://github.com/artf/grapesjs-typed.git"
